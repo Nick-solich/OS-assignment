@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/wait.h>
+int tokenize(char *string, char *delimiters, char ***arrayOfTokens);
 int main()
 {
 	int run = 1;
+	pid_t pid;
 	while(run) {
 		printf("mysh >");
 		/*
@@ -16,8 +19,25 @@ int main()
 		*/
 		char argv[256];
 		fgets(argv,256,stdin);
-		printf("%s",argv);
-
+		char delimiters[] = "\n\t ";
+		char **tokens;
+		int argc = tokenize(argv,delimiters,&tokens);
+		if(argc <= 0) continue;
+		if(strcmp(tokens[0],"exit") == 0 ) return(0);
+		//From task1
+		pid = fork();
+		if (pid < 0) {
+			printf("Error : cannot fork\n");
+			exit(1);
+		}
+		else if (pid == 0) {
+			execvp(tokens[0],&tokens[0]);
+		
+		}
+		else {
+			wait(NULL);
+			return(0);
+		}
 	}
 }
 /*
