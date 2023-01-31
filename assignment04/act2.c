@@ -28,15 +28,16 @@ int main()
 		pid = fork();
 		if (pid < 0) {
 			printf("Error : cannot fork\n");
-			exit(1);
+			//exit(1);
 		}
 		else if (pid == 0) {
 			execvp(tokens[0],&tokens[0]);
+			exit(1);
 		
 		}
 		else {
 			wait(NULL);
-			return(0);
+
 		}
 	}
 }
