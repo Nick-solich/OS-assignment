@@ -19,7 +19,8 @@ int main(int argc, char **argv)
 	//
 	// OS -- OPEN NAMED SEMAPHORE HERE
 	//
-
+	sem_t *sem; 
+	sem = sem_open("/my_semaphore", O_CREAT, 0644, 1);
 	while (1)
 	{
 		// Customer will wait between 1-3 seconds before placing the next phone call
@@ -33,6 +34,7 @@ int main(int argc, char **argv)
 		//
 		// OS -- LOCK SEMAPHORE HERE
 		//
+		sem_wait(sem);
 
 		time_t t = time(NULL) - t0;
 		// An agent accepts the call, using it for 1-5 seconds.
@@ -44,6 +46,7 @@ int main(int argc, char **argv)
 		//
 		// OS -- UNLOCK SEMAPHORE HERE
 		//
+		sem_post(sem);
 
 		printf("Customer ends the call.\n");
 	}
