@@ -1,21 +1,18 @@
 #include <pthread.h>
 #include <stdio.h>
 
+int i = 1;
 
 void *thread_func(void *arg) {
-  int thread_num = *(int *)arg;
+  int thread_num = i++;
   printf("This is thread %d\n", thread_num);
-
   return NULL;
 }
-
 int main(int argc, char *argv[]) {
   pthread_t threads[10];
-  int thread_args[10];
 
   for (int i = 0; i < 10; i++) {
-    thread_args[i] = i+1;
-    pthread_create(&threads[i], NULL, thread_func, &thread_args[i]);
+    pthread_create(&threads[i], NULL, thread_func, NULL);
   }
 
   for (int i = 0; i < 10; i++) {
