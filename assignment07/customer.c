@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 	// OS -- OPEN NAMED SEMAPHORE HERE
 	//
 	sem_t *sem; 
-	sem = sem_open("/my_semaphore", O_CREAT, 0644, 1);
+	sem = sem_open("callcenter", O_CREAT, 0644, 1);
 	while (1)
 	{
 		// Customer will wait between 1-3 seconds before placing the next phone call

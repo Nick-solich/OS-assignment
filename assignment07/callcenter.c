@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 	// OS -- CRAETE NAMED SEMAPHORE HERE
 	//
 	sem_t *sem;
-	sem = sem_open("/my_semaphore", O_CREAT, 0644, num_agents);
+	sem = sem_open("callcenter", O_CREAT, 0644, num_agents);
 
 	int semval;
 	while(1) {
